@@ -39,7 +39,7 @@ geofile = get_geofile(url)
 data['lot_m2'] = data['sqft_lot'] * 0.092903
 data['living_m2'] = data['sqft_living'] * 0.092903
 data = data.drop(['sqft_lot', 'sqft_living'], axis=1)
-data[ 'price_m2' ] = data['price'] / data['lot_m2']
+data['price_m2'] = data['price'] / data['lot_m2']
 
 # --------------------------------------------------
 # DATA OVERVIEW
