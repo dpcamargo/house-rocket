@@ -12,8 +12,7 @@ from PIL import Image
 import math
 
 
-st.set_page_config(layout='wide', page_title='Rocket House by DARIO CAMARGO',
-                   page_icon=':rocket:')
+st.set_page_config(layout='wide', page_title='Rocket House by DARIO CAMARGO')
 
 
 @st.cache(allow_output_mutation=True)
