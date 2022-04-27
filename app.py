@@ -1,14 +1,11 @@
-from turtle import width
 import pandas as pd
 import streamlit as st
-import numpy as np
 import folium
 from streamlit_folium import folium_static
 from folium.plugins import MarkerCluster
 import geopandas
 import plotly.express as px
 from datetime import datetime
-from PIL import Image
 import math
 
 
