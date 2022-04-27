@@ -1,19 +1,15 @@
-from turtle import width
 import pandas as pd
 import streamlit as st
-import numpy as np
 import folium
 from streamlit_folium import folium_static
 from folium.plugins import MarkerCluster
 import geopandas
 import plotly.express as px
 from datetime import datetime
-from PIL import Image
 import math
 
 
-st.set_page_config(layout='wide', page_title='Rocket House by DARIO CAMARGO',
-                   page_icon=':rocket:')
+st.set_page_config(layout='wide')
 
 
 @st.cache(allow_output_mutation=True)
