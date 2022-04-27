@@ -9,7 +9,7 @@ from datetime import datetime
 import math
 
 
-st.set_page_config(layout='wide', page_title='Rocket House by DARIO CAMARGO')
+st.set_page_config(layout='wide')
 
 
 @st.cache(allow_output_mutation=True)
