@@ -1,4 +1,3 @@
-from turtle import width
 import pandas as pd
 import streamlit as st
 import folium
@@ -7,11 +6,7 @@ from folium.plugins import MarkerCluster
 import geopandas
 import plotly.express as px
 from datetime import datetime
-from PIL import Image
 import math
-
-
-st.set_page_config(layout='wide')
 
 
 @st.cache(allow_output_mutation=True)
@@ -223,6 +218,7 @@ def attributes_distribution(data):
 
 
 if __name__ == '__main__':
+    st.set_page_config(layout='wide')
     # EXTRACTION
     path = './datasets/kc_house_data.csv'
     url = 'https://opendata.arcgis.com/datasets/83fc2e72903343aabff6de8cb445b81c_2.geojson'
