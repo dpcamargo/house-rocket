@@ -11,8 +11,11 @@ import math
 
 @st.cache(allow_output_mutation=True)
 def get_data(path):
-    return pd.read_csv(path, usecols=['id', 'date', 'price', 'bedrooms', 'bathrooms', 'sqft_lot', 'sqft_living',
-                                      'floors', 'waterfront', 'zipcode', 'lat', 'long', 'yr_built'], parse_dates=['date'])
+    return pd.read_csv(path, usecols=['id', 'date', 'price', 'bedrooms',
+                                      'bathrooms', 'sqft_lot', 'sqft_living',
+                                      'floors', 'waterfront', 'zipcode', 'lat',
+                                      'long', 'yr_built'],
+                       parse_dates=['date'])
 
 
 @st.cache(allow_output_mutation=True)
@@ -67,7 +70,8 @@ def overview_data(data):
     # Descriptive statistics
     if f_attributes == ['date']:  # DO NOT describe() IF ONLY date IS FILTERED
         df2 = pd.DataFrame(
-            columns=['count', 'mean', 'std', 'min', '25%', '50%', '75%', 'max'])
+            columns=['count', 'mean', 'std', 'min', '25%', '50%', '75%',
+                     'max'])
     else:
         num_attributes = df.select_dtypes(include=['int64', 'float64'])
         df2 = num_attributes.describe().transpose()
@@ -97,12 +101,16 @@ def portfolio_density(data, geofile):
 
     c1.header('Real Estate Density')
 
-    house_density = folium.Map(
-        location=[data['lat'].mean(), data['long'].mean()], default_zoom_start=15)
+    house_density = folium.Map(location=[data['lat'].mean(),
+                               data['long'].mean()], default_zoom_start=15)
     marker_cluster = MarkerCluster().add_to(house_density)
     for name, row in df.iterrows():
         popup = folium.Popup(
-            html=f"Sold for <strong>R$ {int(row['price'])//1000}k</strong> on {row['date'].strftime('%m/%Y')}.</br><strong>Size:</strong> {'{:.0f}'.format(row['lot_m2'])}m²</br><strong>Bedrooms:</strong> {row['bedrooms']}</br><strong>Bathrooms:</strong> {row['bathrooms']}", max_width=110)
+            html=f"Sold for <strong>R$ {int(row['price'])//1000}k</strong> on"
+                 "{row['date'].strftime('%m/%Y')}.</br><strong>Size:</strong>"
+                 " {'{:.0f}'.format(row['lot_m2'])}m²</br><strong>Bedrooms:"
+                 "</strong> {row['bedrooms']}</br><strong>Bathrooms:</strong>"
+                 " {row['bathrooms']}", max_width=110)
         folium.Marker([row['lat'], row['long']],
                       popup=popup).add_to(marker_cluster)
 
@@ -119,9 +127,12 @@ def portfolio_density(data, geofile):
         df1['ZIP'].tolist())]  # Clears ZIPs not in df4
 
     price_density = folium.Map(
-        location=[data['lat'].mean(), data['long'].mean()], default_zoom_start=15)
-    price_density.choropleth(data=df1, columns=['ZIP', 'PRICE'], geo_data=geofile, key_on='feature.properties.ZIP',
-                             fill_color='YlOrRd', fill_opacity=0.7, line_opacity=0.2, legend_name='Avg Price')
+        location=[data['lat'].mean(), data['long'].mean()],
+        default_zoom_start=15)
+    price_density.choropleth(data=df1, columns=['ZIP', 'PRICE'],
+                             geo_data=geofile, key_on='feature.properties.ZIP',
+                             fill_color='YlOrRd', fill_opacity=0.7,
+                             line_opacity=0.2, legend_name='Avg Price')
 
     with c2:
         folium_static(price_density)
@@ -136,7 +147,8 @@ def real_estate_distribution(data):
     date_max = datetime.date(data['date'].max())
     st.sidebar.title('Real Estate Attributes')
     f_year_built = st.sidebar.slider(
-        'Construction Year Interval', yr_built_min, yr_built_max, (yr_built_min, yr_built_max))
+        'Construction Year Interval', yr_built_min, yr_built_max,
+        (yr_built_min, yr_built_max))
     f_date = st.sidebar.slider('Sale Date Interval', date_min,
                                date_max, (date_min, date_max))
 
@@ -182,11 +194,14 @@ def attributes_distribution(data):
 
     st.sidebar.title('Histogram Filters')
     f_bedrooms = st.sidebar.selectbox(
-        'Max bedrooms', data['bedrooms'].sort_values(ascending=False).unique(), index=0)
+        'Max bedrooms', data['bedrooms'].sort_values(ascending=False).unique(),
+        index=0)
     f_bathrooms = st.sidebar.selectbox(
-        'Max bathrooms', data['bathrooms'].sort_values(ascending=False).unique(), index=0)
+        'Max bathrooms', data['bathrooms'].sort_values(ascending=False)
+        .unique(), index=0)
     f_floors = st.sidebar.selectbox(
-        'Max floors', data['floors'].sort_values(ascending=False).unique(), index=0)
+        'Max floors', data['floors'].sort_values(ascending=False).unique(), 
+        index=0)
     f_waterview = st.sidebar.checkbox('Only Houses with Water View')
 
     # House per bedrooms
@@ -221,7 +236,8 @@ if __name__ == '__main__':
     st.set_page_config(layout='wide')
     # EXTRACTION
     path = './datasets/kc_house_data.csv'
-    url = 'https://opendata.arcgis.com/datasets/83fc2e72903343aabff6de8cb445b81c_2.geojson'
+    url = 'https://opendata.arcgis.com/datasets/'
+    '83fc2e72903343aabff6de8cb445b81c_2.geojson'
 
     data = get_data(path)
     geofile = get_geofile(url)
