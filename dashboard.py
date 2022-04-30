@@ -200,7 +200,7 @@ def attributes_distribution(data):
         'Max bathrooms', data['bathrooms'].sort_values(ascending=False)
         .unique(), index=0)
     f_floors = st.sidebar.selectbox(
-        'Max floors', data['floors'].sort_values(ascending=False).unique(), 
+        'Max floors', data['floors'].sort_values(ascending=False).unique(),
         index=0)
     f_waterview = st.sidebar.checkbox('Only Houses with Water View')
 
